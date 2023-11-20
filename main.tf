@@ -1,4 +1,5 @@
 resource "aws_codepipeline" "codepipeline" {
+
   name     = "${var.env}-${var.project_name}-${var.service_name}-pipeline"
   role_arn = aws_iam_role.codepipeline_role.arn
 
@@ -60,4 +61,14 @@ resource "aws_codepipeline" "codepipeline" {
       }
     }
   }
+}
+
+module "code-build" {
+  count                 = var.create_build ? 1 : 0
+  source                = "./modules/code-build"
+  vpc_id                = var.vpc_id
+  env                   = var.env
+  service_name          = var.service_name
+  project_name          = var.project_name
+  codepipeline_artifact = var.codepipeline_artifact
 }

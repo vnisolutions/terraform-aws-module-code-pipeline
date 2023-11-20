@@ -38,4 +38,13 @@ variable "ecs_service_name" {
   type        = string
 }
 
+variable "vpc_id" {
+  description = "The ID of the VPC will be used"
+  type        = string
+}
 
+variable "create_build" {
+  description = "Enable code build"
+  type        = bool
+  default     = true
+}
